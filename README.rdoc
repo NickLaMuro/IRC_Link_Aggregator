@@ -15,6 +15,11 @@ It runs with straight Ruby.  You'll need the Cinch gem and Ruby 1.9.  It also re
   delicious_settings:
     username: Your_Delicious_Username_Here
     password: Your_Delicious_Password_Here
+    shared: false
+    replace: false
+    tags:
+      - tag1
+      - tag2
   tumblr_settings:
     username: Your_Tumblr_Email_Here
     password: Your_Tumblr_Password_Here

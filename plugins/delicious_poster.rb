@@ -38,15 +38,26 @@ class DeliciousPoster
 
     # hierarchy of where to look
     description = doc.css("h1~p").first
-    description = doc.css("h2~p").first if item.description.nil?
-    description = doc.css("article p").first if item.description.nil?
-    description = doc.css("#content p").first if item.description.nil?
-    description = item.description.nil? ? "- None -" : item.description.content
+    description = doc.css("h2~p").first if description.nil?
+    description = doc.css("article p").first if description.nil?
+    description = doc.css("#content p").first if description.nil?
+    description = description.nil? ? "- None -" : description.content
 
-    response = open("http://#{self.delicious_settings[:delicious_settings][:username]}:#{self.delicious_settings[:delicious_settings][:password}@api.del.icio.us/v4/posts/add?&url=#{link}&description=#{title}&extended=#{description}&tags=webdev&shared=no&replace=no")
+    user = self.delicious_settings["delicious_settings"]["username"]
+    password = self.delicious_settings["delicious_settings"]["password"] 
 
+    delicious_link = URI.escape link
+    delicious_description = URI.escape title.strip
+    delicious_extended = URI.escape description.strip 
+    
+    tags = URI.escape self.delicious_settings["delicious_settings"]["tags"].join(" ")
+    shared = self.delicious_settings["delicious_settings"]["shared"] ? "yes" : "no"
+    replace = self.delicious_settings["delicious_settings"]["replace"] ? "yes" : "no"
+
+    uri = "https://#{user}:#{password}@api.del.icio.us/v1/posts/add?&url=#{delicious_link}&description=#{delicious_description}&extended=#{delicious_extended}&tags=#{tags}&shared=#{shared}&replace=#{replace}"
+
+    response = `curl '#{uri}'` 
     puts response
-
   end
 
 end
