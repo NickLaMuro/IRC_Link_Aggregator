@@ -1,0 +1,24 @@
+== IRC Link Aggregator
+
+This bot can be used to grab links an post them to your tumblr/delicious accounts.
+
+== Running it
+
+It runs with straight Ruby.  You'll need the Cinch gem and Ruby 1.9.  It also requires a YAML file that holds all of the account information.  Place it in the root directory with the name of 'account.yml'.  Format should look something like this:
+
+=== account.yml
+
+  irc_settings:
+    server: irc.freenode.org
+    nick: Your_Bot_Name_Here
+    channel: Your_Channel_Name_Here
+  delicious_settings:
+    username: Your_Delicious_Username_Here
+    password: Your_Delicious_Password_Here
+  tumblr_settings:
+    username: Your_Tumblr_Email_Here
+    password: Your_Tumblr_Password_Here
+
+Then just run it with
+
+  ruby bot.rb
